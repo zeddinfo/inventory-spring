@@ -3,9 +3,13 @@ package com.inventory.app.services.impl;
 import com.inventory.app.models.Item;
 import com.inventory.app.repository.ItemRepository;
 import com.inventory.app.services.ItemService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
 

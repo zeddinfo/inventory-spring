@@ -5,9 +5,13 @@ import com.inventory.app.models.Variant;
 import com.inventory.app.repository.ItemRepository;
 import com.inventory.app.repository.VariantRepository;
 import com.inventory.app.services.VariantService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class VariantServiceImpl implements VariantService {
     private final VariantRepository variantRepository;
     private final ItemRepository itemRepository;
