@@ -21,15 +21,15 @@ public class VariantServiceImpl implements VariantService {
         this.itemRepository = itemRepository;
     }
 
-    @Override
-    public Variant create(Long itemId, Variant variant) {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Mapping item yang anda pilih tidak ditemukan."));
+        @Override
+        public Variant create(Long itemId, Variant variant) {
+            Item item = itemRepository.findById(itemId)
+                    .orElseThrow(() -> new RuntimeException("Mapping item yang anda pilih tidak ditemukan."));
 
-        variant.setItem(item);
+            variant.setItem(item);
 
-        return variantRepository.save(variant);
-    }
+            return variantRepository.save(variant);
+        }
 
     @Override
     public Variant update(Long id, Variant variant) {
