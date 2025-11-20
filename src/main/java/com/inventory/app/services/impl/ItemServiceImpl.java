@@ -8,7 +8,6 @@ import com.inventory.app.models.Stock;
 import com.inventory.app.models.Variant;
 import com.inventory.app.repository.ItemRepository;
 import com.inventory.app.requests.ItemRequest;
-import com.inventory.app.requests.VariantRequest;
 import com.inventory.app.services.ItemService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -64,14 +63,62 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.save(item);
     }
 
-
     @Override
-    public Item update(Long id, Item item) {
+    public Item update(Long id, ItemRequest req) {
         Item existing = getById(id);
-        existing.setName(item.getName());
-        existing.setDescription(item.getDescription());
+        existing.setName(req.getName());
+        existing.setDescription(req.getDesccription());
+
+        List<Variant> oldVariants = existing.getVariants();
+        List<Variant> newVariantList = new ArrayList<>();
+
+        if (req.getVariants() != null) {
+            for (VariantDto v : req.getVariants()) {
+
+                Variant variant;
+                if (v.getId() != null) {
+                    variant = oldVariants.stream()
+                            .filter(x -> x.getId().equals(v.getId()))
+                            .findFirst()
+                            .orElseThrow(() -> new RuntimeException("Variant tidak ditemukan"));
+
+                } else {
+                    variant = new Variant();
+                    variant.setItem(existing);
+                }
+
+                variant.setColor(v.getColor());
+                variant.setSize(v.getSize());
+
+                Price price = variant.getPrice();
+                if (price == null) price = new Price();
+
+                price.setPrice(v.getPrice());
+                price.setVariant(variant);
+                variant.setPrice(price);
+
+                Stock stock = variant.getStock();
+                if (stock == null) stock = new Stock();
+
+                stock.setQuantity(v.getStock());
+                stock.setVariant(variant);
+                variant.setStock(stock);
+
+                newVariantList.add(variant);
+            }
+        }
+
+        oldVariants.removeIf(old ->
+                newVariantList.stream().noneMatch(n ->
+                        n.getId() != null && n.getId().equals(old.getId())
+                )
+        );
+
+        existing.setVariants(newVariantList);
+
         return itemRepository.save(existing);
     }
+
 
     @Override
     public Item getById(Long id) {
@@ -81,7 +128,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void delete(Long id){
-        itemRepository.deleteById(id);
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item tidak ditemukan"));
+
+        itemRepository.delete(item);
     }
 
     @Override

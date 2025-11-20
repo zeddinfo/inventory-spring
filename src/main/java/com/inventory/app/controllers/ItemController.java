@@ -35,7 +35,7 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> update(@PathVariable Long id, @RequestBody Item item) {
+    public Map<String, Object> update(@PathVariable Long id, @RequestBody ItemRequest item) {
         return ResponseUtil.Ok(itemService.update(id, item));
     }
 

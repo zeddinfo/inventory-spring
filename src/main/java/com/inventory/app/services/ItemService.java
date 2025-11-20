@@ -11,8 +11,8 @@ public interface ItemService {
 
     @Transactional
     Item create(ItemRequest item);
-
-    Item update(Long id, Item item);
+    
+    Item update(Long id, ItemRequest req);
 
     Item getById(Long id);
 
