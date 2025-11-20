@@ -6,10 +6,14 @@ import com.inventory.app.requests.TransactionRequest;
 import com.inventory.app.services.HistoryService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
 
+@RestController
+@RequestMapping("/api/transactions")
 public class TransactionController {
     private final HistoryService historyService;
 
