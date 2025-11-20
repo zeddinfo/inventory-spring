@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ResponseUtil {
-    public  static Map<String, Object> Ok(Object data){
+    public static Map<String, Object> Ok(Object data){
         Map<String, Object> m = new HashMap<>();
         m.put("status", true);
         m.put("message", "success");
