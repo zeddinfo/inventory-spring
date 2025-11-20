@@ -3,11 +3,17 @@ package com.inventory.app.services.impl;
 import com.inventory.app.dtos.ItemDto;
 import com.inventory.app.dtos.VariantDto;
 import com.inventory.app.models.Item;
+import com.inventory.app.models.Price;
+import com.inventory.app.models.Stock;
+import com.inventory.app.models.Variant;
 import com.inventory.app.repository.ItemRepository;
+import com.inventory.app.requests.ItemRequest;
+import com.inventory.app.requests.VariantRequest;
 import com.inventory.app.services.ItemService;
-import lombok.RequiredArgsConstructor;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +25,45 @@ public class ItemServiceImpl implements ItemService {
         this.itemRepository = itemRepository;
     }
 
+
+    @Transactional
     @Override
-    public Item create(Item item) {
+    public Item create(ItemRequest req) {
+
+        Item item = new Item();
+        item.setName(req.getName());
+        item.setDescription(req.getDesccription());
+
+        List<Variant> variants = new ArrayList<>();
+
+        if (req.getVariants() != null) {
+            for (VariantDto v : req.getVariants()) {
+
+                Variant variant = new Variant();
+                variant.setColor(v.getColor());
+                variant.setSize(v.getSize());
+                variant.setItem(item);
+
+                Price price = new Price();
+                price.setPrice(v.getPrice());
+                price.setVariant(variant);
+
+                Stock stock = new Stock();
+                stock.setQuantity(v.getStock());
+                stock.setVariant(variant);
+
+                variant.setPrice(price);
+                variant.setStock(stock);
+
+                variants.add(variant);
+            }
+        }
+
+        item.setVariants(variants);
+
         return itemRepository.save(item);
     }
+
 
     @Override
     public Item update(Long id, Item item) {

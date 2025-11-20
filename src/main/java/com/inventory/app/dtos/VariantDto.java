@@ -44,9 +44,14 @@ public class VariantDto {
         this.size = size;
     }
 
+    public String getSize() {
+        return size;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
+
 
     public void setPrice(BigDecimal price) {
         this.price = price;

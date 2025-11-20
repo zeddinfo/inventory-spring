@@ -3,6 +3,7 @@ package com.inventory.app.controllers;
 
 import com.inventory.app.exceptions.ResponseUtil;
 import com.inventory.app.models.Item;
+import com.inventory.app.requests.ItemRequest;
 import com.inventory.app.services.ItemService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class ItemController {
     }
 
     @PostMapping
-    public Map<String, Object> create(@RequestBody Item item) {
+    public Map<String, Object> create(@RequestBody ItemRequest item) {
         return ResponseUtil.Ok(itemService.create(item));
     }
 

@@ -8,14 +8,16 @@ import java.util.List;
 public class ItemDto {
     private Long id;
     private String name;
+    private String desccription;
     private List<VariantDto> variants;
 
     public ItemDto() {
     }
 
-    public ItemDto(Long id, String name, List<VariantDto> variants) {
+    public ItemDto(Long id, String name, String desccription, List<VariantDto> variants) {
         this.id = id;
         this.name = name;
+        this.desccription = desccription;
         this.variants = variants;
     }
 
@@ -29,6 +31,10 @@ public class ItemDto {
 
     public String getName() {
         return name;
+    }
+
+    public String getDesccription() {
+        return desccription;
     }
 
     public void setName(String name) {
