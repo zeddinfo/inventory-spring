@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class VariantServiceImpl implements VariantService {
     private final VariantRepository variantRepository;
     private final ItemRepository itemRepository;

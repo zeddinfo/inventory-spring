@@ -1,5 +1,6 @@
 package com.inventory.app.services;
 
+import com.inventory.app.dtos.ItemDto;
 import com.inventory.app.models.Item;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface ItemService {
 
     void delete(Long id);
 
-    List<Item> getAll();
+    List<ItemDto> getAll();
 }

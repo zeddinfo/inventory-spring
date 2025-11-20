@@ -5,11 +5,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "stocks")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,16 +7,18 @@ import java.math.BigDecimal;
 @Data
 public class VariantDto {
     private Long id;
-    private String name;
+    private String color;
+    private String size;
     private BigDecimal price;
     private Integer stock;
 
     public VariantDto() {
     }
 
-    public VariantDto(Long id, String name, BigDecimal price, Integer stock) {
+    public VariantDto(Long id, String color, String size, BigDecimal price, Integer stock) {
         this.id = id;
-        this.name = name;
+        this.color = color;
+        this.size = size;
         this.price = price;
         this.stock = stock;
     }
@@ -29,12 +31,17 @@ public class VariantDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getColor() {
+        return color;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public BigDecimal getPrice() {

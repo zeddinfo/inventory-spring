@@ -5,11 +5,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "variants")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Variant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,7 +94,7 @@ public class Variant {
         this.stock = stock;
 
         if (stock != null) {
-            stock.set(this);
+            stock.setVariant(this);
         }
     }
 }

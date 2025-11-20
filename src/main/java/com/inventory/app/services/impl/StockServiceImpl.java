@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class StockServiceImpl implements StockService {
     private final StockRepository stockRepository;
     private final VariantRepository variantRepository;
